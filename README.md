@@ -1,4 +1,4 @@
-# Airbnb Clone (Project 17)
+# Airbnb Clone
 
 A small, educational Airbnb-like web application built with Node.js, Express and MongoDB. It allows users to sign up, list properties, upload images (Cloudinary), and create reviews. The app was built as part of a full-stack course project and is designed to be simple, readable, and easy to extend.
 
