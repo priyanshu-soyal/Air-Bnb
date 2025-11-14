@@ -1,64 +1,128 @@
-# Airbnb Clone (Project 17)
+# 🏠 Airbnb Clone - WonderLust
 
-A small, educational Airbnb-like web application built with Node.js, Express and MongoDB. It allows users to sign up, list properties, upload images (Cloudinary), and create reviews. The app was built as part of a full-stack course project and is designed to be simple, readable, and easy to extend.
+A full-featured property listing application like Airbnb web application built with the MERN stack (MongoDB, Express, EJS, Node.js). This project demonstrates property listing management, user authentication, image uploads, and review systems - perfect for learning full-stack web development.
 
-## Highlights
+## ✨ Features
 
-- CRUD for Listings (create, read, update, delete)
-- User authentication with Passport (local strategy)
-- Image upload and storage using Cloudinary
-- Reviews tied to listings (deletes cascade when a listing is removed)
-- Flash messages and session storage using MongoDB (connect-mongo)
+- **Property Listings**: Full CRUD operations for creating, viewing, editing, and deleting listings
+- **User Authentication**: Secure signup/login system using Passport.js with local strategy
+- **Image Upload**: Seamless image upload and cloud storage integration with Cloudinary
+- **Review System**: Users can add and delete reviews on listings
+- **Authorization**: Owner-based permissions for editing/deleting listings and reviews
+- **Session Management**: Persistent sessions stored in MongoDB with express-session
+- **Flash Messages**: User-friendly success and error notifications
+- **Responsive Design**: Clean, modern UI with custom CSS styling
 
-## Tech stack
+## 🛠️ Tech Stack
 
-- Node.js (Express)
-- MongoDB (Mongoose)
-- EJS + ejs-mate for server-side rendering
-- Passport for authentication
-- Cloudinary for image storage
-- Multer for multipart/form-data upload handling
+**Backend:**
 
-## Quick start
+- Node.js - Runtime environment
+- Express.js - Web application framework
+- MongoDB - NoSQL database
+- Mongoose - MongoDB object modeling
 
-1. Clone the repository
+**Frontend:**
 
-2. Install dependencies
+- EJS (Embedded JavaScript) - Templating engine
+- ejs-mate - Layout support for EJS
+- CSS - Custom styling
+
+**Authentication & Security:**
+
+- Passport.js - Authentication middleware
+- passport-local - Local authentication strategy
+- passport-local-mongoose - Mongoose plugin for Passport
+
+**File Upload:**
+
+- Multer - Multipart/form-data handling
+- Cloudinary - Cloud-based image storage and management
+
+**Session & State:**
+
+- express-session - Session middleware
+- connect-mongo - MongoDB session store
+- connect-flash - Flash message middleware
+
+**Validation:**
+
+- Joi - Schema validation
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v22.13.1 or higher)
+- MongoDB Atlas account (or local MongoDB installation)
+- Cloudinary account for image storage
+
+### Installation
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/priyanshu-soyal/Air-Bnb.git
+cd Air-Bnb
+```
+
+2. **Install dependencies**
 
 ```powershell
 npm install
 ```
 
-3. Create a `.env` file in the project root (see Environment variables below)
+3. **Set up environment variables**
 
-4. Run the app
+Create a `.env` file in the project root and add the following:
+
+```env
+ATLASDB_URL=your_mongodb_connection_string_here
+SECRET=your_session_secret_key
+CLOUD_NAME=your_cloudinary_cloud_name
+CLOUD_API_KEY=your_cloudinary_api_key
+CLOUD_API_SECRET=your_cloudinary_api_secret
+NODE_ENV=development
+```
+
+> **⚠️ Important:** Never commit your `.env` file to version control!
+
+4. **Initialize the database (optional)**
+
+To seed the database with sample data:
+
+```powershell
+node initDB/initDB.js
+```
+
+5. **Start the application**
 
 ```powershell
 node app.js
-# or use nodemon if you have it installed
 ```
 
-By default the app listens on port 8080. Open http://localhost:8080/listings in your browser.
+The application will be available at **http://localhost:8080/listings**
 
-## Environment variables
+## 📝 Environment Variables
 
-Create a `.env` file (or set environment variables) with the following keys:
+| Variable           | Description                                      | Required |
+| ------------------ | ------------------------------------------------ | -------- |
+| `ATLASDB_URL`      | MongoDB connection string (MongoDB Atlas)        | Yes      |
+| `SECRET`           | Secret key for session encryption                | Yes      |
+| `CLOUD_NAME`       | Cloudinary cloud name                            | Yes      |
+| `CLOUD_API_KEY`    | Cloudinary API key                               | Yes      |
+| `CLOUD_API_SECRET` | Cloudinary API secret                            | Yes      |
+| `NODE_ENV`         | Environment mode (`development` or `production`) | No       |
 
-- ATLASDB_URL - MongoDB connection string (MongoDB Atlas recommended)
-- SECRET - Session secret for express-session
-- CLOUD_NAME - Cloudinary cloud name
-- CLOUD_API_KEY - Cloudinary API key
-- CLOUD_API_SECRET - Cloudinary API secret
-- NODE_ENV - set to `production` in a production environment (optional)
+### Example `.env` file:
 
-Example `.env` (do NOT commit this file):
-
-```
-ATLASDB_URL=your_mongodb_connection_string_here
-SECRET=some_long_random_secret
-CLOUD_NAME=your_cloudinary_name
-CLOUD_API_KEY=your_key
-CLOUD_API_SECRET=your_secret
+```env
+ATLASDB_URL=mongodb+srv://username:password@cluster.mongodb.net/airbnb?retryWrites=true&w=majority
+SECRET=mysupersecretkey123456
+CLOUD_NAME=mycloud
+CLOUD_API_KEY=123456789012345
+CLOUD_API_SECRET=abcdefghijklmnopqrstuvwxyz
+NODE_ENV=development
 ```
 
 ## Database seeding / init
@@ -89,17 +153,42 @@ There is an `initDB` folder (`initDB/initDB.js` and `initDB/data.js`) included i
 
 See the `routes` folder for the exact implementation and middleware usage.
 
-## Project structure (top-level)
+## 🗂️ Project Structure
 
-- `app.js` — application entry point and server configuration
-- `Controllers/` — controller logic for listings, reviews, and users
-- `models/` — Mongoose models (Listing, Reviews, User)
-- `routes/` — Express routers for the app's endpoints
-- `views/` — EJS templates and layouts
-- `public/` — static assets (CSS, client JS)
-- `cloudConfig.js` — Cloudinary configuration and Multer storage
-- `initDB/` — optional seeding scripts
-- `uploads/` — (if present) local images (Cloudinary is used by default)
+```
+17-AIR-BNB/
+├── Controllers/          # Business logic for routes
+│   ├── listingsController.js
+│   ├── reviewsController.js
+│   └── userController.js
+├── models/              # Mongoose schemas
+│   ├── Listing.js
+│   ├── Reviews.js
+│   └── User.js
+├── routes/              # Express route definitions
+│   ├── listingsRoute.js
+│   ├── reviewRoute.js
+│   └── userRoute.js
+├── views/               # EJS templates
+│   ├── layouts/
+│   ├── listings/
+│   ├── users/
+│   └── includes/
+├── public/              # Static assets
+│   ├── CSS/
+│   └── JS/
+├── initDB/              # Database seeding scripts
+│   ├── data.js
+│   └── initDB.js
+├── utils/               # Utility functions
+│   ├── ExpressError.js
+│   └── wrapAsync.js
+├── app.js               # Application entry point
+├── cloudConfig.js       # Cloudinary configuration
+├── joiSchema.js         # Validation schemas
+├── Middelwares.js       # Custom middleware
+└── package.json         # Project dependencies
+```
 
 ## Notes & assumptions
 
