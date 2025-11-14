@@ -83,6 +83,11 @@ const store = mongoStore.create({
   },
   touchAfter: 24 * 3600,
 });
+
+// for error in mongo store
+store.on("error", () => {
+  console.log("Error in Mongo Session Store", error);
+});
 // idea: express-sessions :-
 const sessionOptions = {
   store,
